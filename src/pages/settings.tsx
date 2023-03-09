@@ -1,6 +1,6 @@
 import Layout from "@/components/template/Layout";
 
-export default function Home() {
+export default function Settings() {
 	return (
 		<>
 			<div
@@ -8,7 +8,7 @@ export default function Home() {
 
       `}
 			>
-				<Layout title="Home" subtitle="Creating Admin Template">
+				<Layout title="Settings" subtitle="Configure your settings">
 					<h3>Content</h3>
 				</Layout>
 			</div>
