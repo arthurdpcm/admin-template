@@ -34,7 +34,7 @@ export default function MenuItem(props: MenuItemProps) {
 		<li
 			onClick={props.onClick}
 			className={`
-                hover:bg-gray-200 dark:hover:bg-gray-800
+                hover:bg-gray-100 dark:hover:bg-gray-800
 				cursor-pointer
 		`}
 		>

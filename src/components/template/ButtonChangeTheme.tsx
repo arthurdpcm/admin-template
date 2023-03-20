@@ -2,8 +2,8 @@ import React from "react";
 import { DarkIcon, LightIcon } from "../icons";
 
 interface ButtonChangeThemeProps {
-	theme: string;
-	changeTheme: () => void;
+	theme?: string;
+	changeTheme?: () => void;
 }
 
 export default function ButtonChangeTheme(props: ButtonChangeThemeProps) {

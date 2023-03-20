@@ -1,5 +1,6 @@
 import useAppData from "@/data/hook/useAppData";
 import React from "react";
+import Avatar from "./Avatar";
 import ButtonChangeTheme from "./ButtonChangeTheme";
 import Title from "./Title";
 
@@ -20,10 +21,11 @@ export default function Header(props: HeaderProps) {
 			<Title title={props.title} subtitle={props.subtitle} />
 			<div
 				className={`
-				flex flex-grow justify-end
+				flex flex-grow justify-end items-center
 			`}
 			>
 				<ButtonChangeTheme theme={theme} changeTheme={changeTheme} />
+				<Avatar className="ml-3"/>
 			</div>
 		</div>
 	);
