@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import User from "../../model/User";
 import { createContext, useEffect, useState } from "react";
 import firebase from "../../firebase/config";
@@ -7,8 +9,8 @@ import Cookies from "js-cookie";
 interface AuthContextProps {
 	user?: User;
     loading?: boolean
-	login?: (email: string, password: string) => Promise<void>;
 	signup?: (email: string, password: string) => Promise<void>;
+	login?: (email: string, password: string) => Promise<void>
 	loginGoogle?: () => Promise<void>;
 	logout?: () => Promise<void>;
 }
@@ -18,14 +20,17 @@ const AuthContext = createContext<AuthContextProps>({});
 async function normalizedUser(firebaseUser: firebase.User): Promise<User> {
 	const token = await firebaseUser.getIdToken();
 
+
 	return {
 		uid: firebaseUser.uid,
-		name: firebaseUser.displayName,
-		email: firebaseUser.email,
+		name: firebaseUser.displayName as string,
+		email: firebaseUser.email as string,
 		token,
+		
 		provider: firebaseUser.providerData[0].providerId,
 		imageUrl: firebaseUser.photoURL,
 	};
+	
 }
 
 function manageCookie(logged: boolean) {
@@ -53,7 +58,7 @@ export function AuthProvider(props) {
 		}
 	}
 
-	async function configureSession(firebaseUser) {
+	async function configureSession(firebaseUser: any) {
 		if (firebaseUser?.email) {
 			const user = await normalizedUser(firebaseUser);
 			setUser(user);
@@ -109,6 +114,7 @@ export function AuthProvider(props) {
 	}
 
 	useEffect(() => {
+
 		if (Cookies.get("admin-template-arthur-auth")) {
 			const cancel = firebase.auth().onIdTokenChanged(configureSession);
 			return () => cancel();

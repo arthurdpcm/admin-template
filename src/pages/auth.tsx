@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import AuthInput from "@/components/auth/AuthInput";
 import { GoogleIcon, WarningIcon } from "@/components/icons";
 import Image from "next/image";
@@ -6,15 +8,20 @@ import Horizon from "public/horizon.jpg";
 import useAuth from "@/data/hook/useAuth";
 
 export default function Auth() {
-	const [mode, setMode] = useState<"login" | "signup">("login");
-	const [error, setError] = useState(null);
-
-	const [email, setEmail] = useState("");
-	const [name, setName] = useState("");
-	const [password, setPassword] = useState("");
-
 	const { signup, login, loginGoogle } = useAuth();
 
+	const [mode, setMode] = useState<"login" | "signup">("login");
+	const [error, setError] = useState(null);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+
+	
+	function showError(msg: any, seconds = 10) {
+		setError(msg);
+		setTimeout(() => setError(null), seconds * 1000);
+	}
+	
 	async function onSubmit() {
 		try{
 			if (mode === "login") {
@@ -28,11 +35,6 @@ export default function Auth() {
 			showError(e?.message ?? "Unknow error!")
 		}
 		
-	}
-
-	function showError(msg: any, seconds = 10) {
-		setError(msg);
-		setTimeout(() => setError(null), seconds * 1000);
 	}
 
 	return (

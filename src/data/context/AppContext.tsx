@@ -5,6 +5,7 @@ import { createContext, useState,useEffect } from "react"
 interface AppContextProps{
     theme?: string
     changeTheme?: ()=> void
+    children?: any
 }
 
 const AppContext = createContext<AppContextProps>({})
@@ -12,7 +13,7 @@ const AppContext = createContext<AppContextProps>({})
 
 export function AppProvider(props: AppContextProps){
 
-    const [theme, setTheme] = useState('')
+    const [theme, setTheme] = useState<string>('')
 
     function changeTheme(){
         const newTheme =  theme === '' ? 'dark' : ''
@@ -22,7 +23,9 @@ export function AppProvider(props: AppContextProps){
 
     useEffect(() => {
         const localTheme = localStorage.getItem('theme')
-        setTheme(localTheme)
+        if(localTheme){
+            setTheme(localTheme)
+        }
     
     }, [])
     
