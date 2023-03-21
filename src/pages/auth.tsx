@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useState } from "react";
 import Horizon from "public/horizon.jpg";
 import useAuth from "@/data/hook/useAuth";
+import Head from "next/head";
+
 
 export default function Auth() {
 	const { signup, login, loginGoogle } = useAuth();
@@ -38,130 +40,138 @@ export default function Auth() {
 	}
 
 	return (
-		<div
-			className={`
-			flex h-screen items-center justify-center
-		`}
-		>
-			<div className={`hidden md:block md:w-1/2 lg:w-2/3`}>
-				<Image
-					src={Horizon}
-					alt="Horizon"
-					className={`h-screen w-full object-cover`}
-				/>
-			</div>
+		<>
+			<Head>
+				<title>{mode === "login" ?
+					"Login" : "Sign up"
+				}</title>
 
-			<div className={` m-10 w-full md:w-1/2 lg:w-1/3`}>
-				<h1
-					className={`
-					text-3xl font-bold mb-5	
-				`}
-				>
-					{mode === "login" ? "Login" : "Sign up"}
-				</h1>
+			</Head>
+			<div
+				className={`
+				flex h-screen items-center justify-center
+			`}
+			>
+				<div className={`hidden md:block md:w-1/2 lg:w-2/3`}>
+					<Image
+						src={Horizon}
+						alt="Horizon"
+						className={`h-screen w-full object-cover`}
+					/>
+				</div>
 
-				{error ? (
-					<div
-						className={` flex items-center
-						bg-red-400 text-white py-3 px-5 my-2
-						border border-red-700 rounded-lg
+				<div className={` m-10 w-full md:w-1/2 lg:w-1/3`}>
+					<h1
+						className={`
+						text-3xl font-bold mb-5	
 					`}
 					>
-						{WarningIcon()}
-						<span className={`ml-3`}>{error}</span>
-					</div>
-				) : (
-					false
-				)}
+						{mode === "login" ? "Login" : "Sign up"}
+					</h1>
 
-				{/* <AuthInput
-					label="Name"
-					value={name}
-					valueHasChanged={setName}
-					required
-				/> */}
-				<AuthInput
-					label="Email"
-					type="email"
-					value={email}
-					valueHasChanged={setEmail}
-					required
-				/>
-				<AuthInput
-					label="Password"
-					type="password"
-					value={password}
-					valueHasChanged={setPassword}
-					required
-				/>
+					{error ? (
+						<div
+							className={` flex items-center
+							bg-red-400 text-white py-3 px-5 my-2
+							border border-red-700 rounded-lg
+						`}
+						>
+							{WarningIcon()}
+							<span className={`ml-3`}>{error}</span>
+						</div>
+					) : (
+						false
+					)}
 
-				<button
-					onClick={onSubmit}
-					className={`
-					w-full bg-indigo-500 hover:bg-indigo-400 text-white
-					rounded-lg px-4 py-3 mt-6
-				`}
-				>
-					{mode === "login" ? "Login" : "Sign up"}
-				</button>
+					{/* <AuthInput
+						label="Name"
+						value={name}
+						valueHasChanged={setName}
+						required
+					/> */}
+					<AuthInput
+						label="Email"
+						type="email"
+						value={email}
+						valueHasChanged={setEmail}
+						required
+					/>
+					<AuthInput
+						label="Password"
+						type="password"
+						value={password}
+						valueHasChanged={setPassword}
+						required
+					/>
 
-				<hr className={`my-6 border-gray-300 w-full`} />
+					<button
+						onClick={onSubmit}
+						className={`
+						w-full bg-indigo-500 hover:bg-indigo-400 text-white
+						rounded-lg px-4 py-3 mt-6
+					`}
+					>
+						{mode === "login" ? "Login" : "Sign up"}
+					</button>
 
-				<button
-					onClick={loginGoogle}
-					className={`
-					flex items-center justify-center
-					w-full bg-red-500 text-gray-700 hover:bg-red-400 
-					rounded-lg px-3 py-3
-				`}
-				>
-					<div
+					<hr className={`my-6 border-gray-300 w-full`} />
+
+					<button
+						onClick={loginGoogle}
 						className={`
 						flex items-center justify-center
-						bg-white rounded-full h-8 w-8
-
+						w-full bg-red-500 text-gray-700 hover:bg-red-400 
+						rounded-lg px-3 py-3
 					`}
 					>
-						{GoogleIcon}
-					</div>
-
-					<span
-						className={`
-						ml-3 text-white
-					`}
-					>
-						Login with Google
-					</span>
-				</button>
-
-				{mode === "login" ? (
-					<p className={`mt-2`}>
-						New here?{" "}
-						<a
-							onClick={() => setMode("signup")}
+						<div
 							className={`
-							text-blue-500 hover:text-blue-700 font-medium
-							cursor-pointer hover:underline
+							flex items-center justify-center
+							bg-white rounded-full h-8 w-8
+
 						`}
 						>
-							Click here to sign up!
-						</a>
-					</p>
-				) : (
-					<p className={`mt-2`}>
-						Have an account?{" "}
-						<a
-							onClick={() => setMode("login")}
+							{GoogleIcon}
+						</div>
+
+						<span
 							className={`
-							text-blue-500 hover:text-blue-700 font-medium
-							cursor-pointer hover:underline
+							ml-3 text-white
 						`}
 						>
-							Login here
-						</a>
-					</p>
-				)}
+							Login with Google
+						</span>
+					</button>
+
+					{mode === "login" ? (
+						<p className={`mt-2`}>
+							New here?{" "}
+							<a
+								onClick={() => setMode("signup")}
+								className={`
+								text-blue-500 hover:text-blue-700 font-medium
+								cursor-pointer hover:underline
+							`}
+							>
+								Click here to sign up!
+							</a>
+						</p>
+					) : (
+						<p className={`mt-2`}>
+							Have an account?{" "}
+							<a
+								onClick={() => setMode("login")}
+								className={`
+								text-blue-500 hover:text-blue-700 font-medium
+								cursor-pointer hover:underline
+							`}
+							>
+								Login here
+							</a>
+						</p>
+					)}
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }
